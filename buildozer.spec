@@ -9,10 +9,13 @@ requirements = python3,kivy,kivymd,pillow
 
 orientation = portrait
 fullscreen = 0
-android.archs = arm64-v8a, armeabi-v7a
+# On ne garde qu'une architecture pour le test, c'est plus sûr
+android.archs = arm64-v8a
 android.allow_backup = True
+# On force l'utilisation de la branche stable pour éviter les erreurs de dossiers
+p4a.branch = master
 
-# Permissions pour tes PDF à Grand-Bassam
+# Permissions
 android.permissions = WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, INTERNET
 
 [buildozer]
