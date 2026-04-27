@@ -1,18 +1,21 @@
-name: Build GAIKARO APK
-on: [push]
+name: GAIKARO_BUILD
+on: [push, workflow_dispatch]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Build with Buildozer
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build APK with Buildozer
         uses: ArtemSerebriakov/buildozer-action@v1
         with:
-          buildozer_version: master
           command: buildozer -v android debug
-      - name: Upload APK
-        uses: actions/upload-artifact@v2
+          buildozer_version: master
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
         with:
-          name: GaiKaro-App-Android
+          name: GAIKARO-App-Android
           path: bin/*.apk
