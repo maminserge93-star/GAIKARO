@@ -9,11 +9,18 @@ requirements = python3,kivy,kivymd,pillow
 
 orientation = portrait
 fullscreen = 0
-# On ne garde qu'une architecture pour le test, c'est plus sûr
+# On garde l'architecture la plus courante
 android.archs = arm64-v8a
 android.allow_backup = True
-# On force l'utilisation de la branche stable pour éviter les erreurs de dossiers
+# Branche stable
 p4a.branch = master
+
+# --- FIXATIONS DE VERSIONS POUR ÉVITER L'ERREUR LICENCE/AIDL ---
+android.sdk = 34
+android.api = 34
+android.minapi = 21
+android.build_tools_version = 34.0.0
+# -----------------------------------------------------------
 
 # Permissions
 android.permissions = WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, INTERNET
