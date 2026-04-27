@@ -1,6 +1,29 @@
-- name: Fabriquer l'APK avec Buildozer
+name: GAIKARO_BUILD
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Installer les dépendances système
+        run: |
+          sudo apt update
+          sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
+          pip3 install --user --upgrade buildozer cython virtualenv
+
+      - name: Fabriquer l'APK avec Buildozer
         run: |
           export PATH=$PATH:$HOME/.local/bin
-          # On force le nettoyage avant de construire
+          # Nettoyage des anciens fichiers pour éviter les erreurs
           buildozer android clean
+          # Lancement de la construction
           buildozer -v android debug
+
+      - name: Téléverser l'APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: GAIKARO-App-Android
+          path: bin/*.apk
