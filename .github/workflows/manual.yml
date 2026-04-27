@@ -5,24 +5,23 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Installer les dependances
+      - name: Setup
         run: |
           sudo apt update
           sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
           pip3 install --user --upgrade buildozer cython virtualenv
 
-      - name: Fabriquer l'APK
+      - name: Build
         run: |
           export PATH=$PATH:$HOME/.local/bin
-          mkdir -p ~/.android && touch ~/.android/repositories.cfg
-          buildozer android sdkmanager -- --licenses || true
-          buildozer -v android debug
+          # Cette commande magique répond 'y' (yes) à chaque fois que le système demande une licence
+          yes | buildozer -v android debug
 
-      - name: Televerser l'APK
+      - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: GAIKARO-App-Android
+          name: GAIKARO-APK
           path: bin/*.apk
