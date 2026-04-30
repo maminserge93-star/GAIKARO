@@ -8,12 +8,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup
+      - name: Installer les dependances
         run: |
           sudo apt update
           sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
-          pip3 install --user --upgrade buildozer cython virtualenv
-
+          # On installe une version précise de Cython pour éviter l'erreur 'long'
+          pip3 install --user --upgrade "Cython<3.0" buildozer virtualenv
       - name: Build
         run: |
           export PATH=$PATH:$HOME/.local/bin
