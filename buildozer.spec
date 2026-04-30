@@ -5,7 +5,8 @@ package.domain = org.ideba
 source.dir = .
 source.include_exts = py,png,jpg,kv,atlas,json
 version = 0.1
-requirements = python3,kivy,kivymd,pillow
+# Ajoute Cython avec sa version dans les requirements
+requirements = python3,kivy==2.3.0,kivymd,pillow,cython==0.29.33
 
 orientation = portrait
 fullscreen = 0
